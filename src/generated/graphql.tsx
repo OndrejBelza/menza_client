@@ -227,10 +227,13 @@ export type QuerySearchMealArgs = {
 
 export type Restaurant = {
   __typename?: 'Restaurant';
+  address: Scalars['String'];
   id: Scalars['ID'];
+  img: Scalars['String'];
   mealPrices: Array<MealPrice>;
   menuUrl: Scalars['String'];
   name: Scalars['String'];
+  openingHours: Scalars['String'];
   scrape: Scalars['Boolean'];
 };
 
@@ -274,7 +277,7 @@ export type UpdateRestaurantInput = {
 export type RestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RestaurantsQuery = { __typename?: 'Query', restaurants: Array<{ __typename?: 'Restaurant', id: string, name: string }> };
+export type RestaurantsQuery = { __typename?: 'Query', restaurants: Array<{ __typename?: 'Restaurant', id: string, name: string, img: string }> };
 
 
 export const RestaurantsDocument = gql`
@@ -282,6 +285,7 @@ export const RestaurantsDocument = gql`
   restaurants {
     id
     name
+    img
   }
 }
     `;
