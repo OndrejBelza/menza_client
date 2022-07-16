@@ -1,7 +1,7 @@
+import DefaultLayout from "@layouts/Default";
+import Homepage from "@pages/Homepage";
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import DefaultLayout from "./components/organisms/DefaultLayout";
-import HomePage from "./pages/Homepage";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
         <DefaultLayout>
           <Routes>
-            <Route path="/" element={<HomePage />}></Route>
+            <Route path="/" element={<Homepage />}></Route>
           </Routes>
         </DefaultLayout>
       </BrowserRouter>

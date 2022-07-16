@@ -1,5 +1,5 @@
 import { FC } from "react";
-import DefaultLayout from "./DefaultLayout";
+import DefaultLayout from "./Layout";
 
 export type DefaultLayoutContainerProps = {
   children?: React.ReactNode;
