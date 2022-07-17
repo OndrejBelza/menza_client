@@ -21,6 +21,10 @@ const Header: FC = () => {
               Seznam restaurací
             </span>
           </Link>
+
+          <Link to="/meal">
+            <span className="font-semibold text-blue-500">Seznam jídel</span>
+          </Link>
         </div>
       </div>
     </div>

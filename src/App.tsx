@@ -3,6 +3,8 @@ import DefaultLayout from "@layouts/Default";
 import Homepage from "@pages/Homepage";
 import MenuContainer from "@pages/Menu";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import MealsContainer from "@pages/Meals";
+import MealContainer from "@pages/Meal";
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
                 <Route path="menu" element={<MenuContainer />} />
               </Route>
             </Route>
+            <Route path="meal" element={<MealsContainer />} />
+            <Route path="meal/:id" element={<MealContainer />} />
           </Routes>
         </DefaultLayout>
       </BrowserRouter>

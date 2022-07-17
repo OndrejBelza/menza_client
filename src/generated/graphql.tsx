@@ -14,32 +14,33 @@ export type Scalars = {
   Int: number;
   Float: number;
   DateTime: any;
+  UUID: any;
 };
 
 export type Category = {
   __typename?: 'Category';
-  id: Scalars['String'];
+  id: Scalars['UUID'];
   meals: Array<Meal>;
   name: Scalars['String'];
 };
 
 export type CreateMealInput = {
-  categoryId: Scalars['ID'];
+  categoryId: Scalars['UUID'];
   name: Scalars['String'];
 };
 
 export type CreateMealPictureInput = {
   img: Scalars['String'];
-  mealId: Scalars['ID'];
-  restaurantId: Scalars['ID'];
+  mealId: Scalars['UUID'];
+  restaurantId: Scalars['UUID'];
 };
 
 export type CreateMealPriceInput = {
   date: Scalars['DateTime'];
-  mealId: Scalars['ID'];
+  mealId: Scalars['UUID'];
   priceRegular: Scalars['Float'];
   priceStudent: Scalars['Float'];
-  restaurantId: Scalars['ID'];
+  restaurantId: Scalars['UUID'];
 };
 
 export type CreateRestaurantInput = {
@@ -54,7 +55,7 @@ export type CreateRestaurantInput = {
 export type Meal = {
   __typename?: 'Meal';
   category?: Maybe<Category>;
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
   name: Scalars['String'];
   pictures: Array<MealPicture>;
   prices: Array<MealPrice>;
@@ -62,13 +63,13 @@ export type Meal = {
 
 export type MealOption = {
   __typename?: 'MealOption';
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
   name: Scalars['String'];
 };
 
 export type MealPicture = {
   __typename?: 'MealPicture';
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
   img: Scalars['String'];
   meal?: Maybe<Meal>;
   restaurant?: Maybe<Restaurant>;
@@ -77,7 +78,7 @@ export type MealPicture = {
 export type MealPrice = {
   __typename?: 'MealPrice';
   date: Scalars['DateTime'];
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
   meal?: Maybe<Meal>;
   priceRegular: Scalars['Float'];
   priceStudent: Scalars['Float'];
@@ -135,17 +136,17 @@ export type MutationCreateRestaurantArgs = {
 
 
 export type MutationDelateMealPictureArgs = {
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
 };
 
 
 export type MutationDeleteCategoryArgs = {
-  id: Scalars['String'];
+  id: Scalars['UUID'];
 };
 
 
 export type MutationDeleteRestaurantArgs = {
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
 };
 
 
@@ -191,33 +192,33 @@ export type Query = {
 
 
 export type QueryCategoryArgs = {
-  id: Scalars['String'];
+  id: Scalars['UUID'];
 };
 
 
 export type QueryMealArgs = {
-  id: Scalars['String'];
+  id: Scalars['UUID'];
 };
 
 
 export type QueryMealPictureArgs = {
-  id: Scalars['String'];
+  id: Scalars['UUID'];
 };
 
 
 export type QueryMealPriceArgs = {
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
 };
 
 
 export type QueryMenuArgs = {
   date: Scalars['DateTime'];
-  restaurantId: Scalars['String'];
+  restaurantId: Scalars['UUID'];
 };
 
 
 export type QueryRestaurantArgs = {
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
 };
 
 
@@ -228,7 +229,7 @@ export type QuerySearchMealArgs = {
 export type Restaurant = {
   __typename?: 'Restaurant';
   address: Scalars['String'];
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
   img: Scalars['String'];
   mealPrices: Array<MealPrice>;
   menuUrl: Scalars['String'];
@@ -238,35 +239,35 @@ export type Restaurant = {
 };
 
 export type UpdateCategoryInput = {
-  id: Scalars['String'];
+  id: Scalars['UUID'];
   name: Scalars['String'];
 };
 
 export type UpdateMealInput = {
-  categoryId: Scalars['ID'];
-  id: Scalars['ID'];
+  categoryId: Scalars['UUID'];
+  id: Scalars['UUID'];
   name: Scalars['String'];
 };
 
 export type UpdateMealPictureInput = {
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
   img: Scalars['String'];
-  mealId: Scalars['ID'];
-  restaurantId: Scalars['ID'];
+  mealId: Scalars['UUID'];
+  restaurantId: Scalars['UUID'];
 };
 
 export type UpdateMealPriceInput = {
   date: Scalars['DateTime'];
-  id: Scalars['ID'];
-  mealId: Scalars['ID'];
+  id: Scalars['UUID'];
+  mealId: Scalars['UUID'];
   priceRegular: Scalars['Float'];
   priceStudent: Scalars['Float'];
-  restaurantId: Scalars['ID'];
+  restaurantId: Scalars['UUID'];
 };
 
 export type UpdateRestaurantInput = {
   address: Scalars['String'];
-  id: Scalars['ID'];
+  id: Scalars['UUID'];
   img: Scalars['String'];
   menuUrl: Scalars['String'];
   name: Scalars['String'];
@@ -274,18 +275,128 @@ export type UpdateRestaurantInput = {
   scrapingStartedAt: Scalars['DateTime'];
 };
 
+export type MealQueryVariables = Exact<{
+  id: Scalars['UUID'];
+}>;
+
+
+export type MealQuery = { __typename?: 'Query', meal?: { __typename?: 'Meal', id: any, name: string, category?: { __typename?: 'Category', id: any, name: string } | null, pictures: Array<{ __typename?: 'MealPicture', id: any, img: string, restaurant?: { __typename?: 'Restaurant', id: any, name: string } | null }>, prices: Array<{ __typename?: 'MealPrice', id: any, date: any, priceStudent: number, priceRegular: number, restaurant?: { __typename?: 'Restaurant', id: any, name: string } | null }> } | null };
+
+export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: any, name: string, category?: { __typename?: 'Category', name: string } | null }> };
+
 export type RestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RestaurantsQuery = { __typename?: 'Query', restaurants: Array<{ __typename?: 'Restaurant', id: string, name: string, img: string }> };
+export type RestaurantsQuery = { __typename?: 'Query', restaurants: Array<{ __typename?: 'Restaurant', id: any, name: string, img: string, openingHours: string, address: string }> };
 
 
+export const MealDocument = gql`
+    query meal($id: UUID!) {
+  meal(id: $id) {
+    id
+    name
+    category {
+      id
+      name
+    }
+    pictures {
+      id
+      img
+      restaurant {
+        id
+        name
+      }
+    }
+    prices {
+      id
+      date
+      priceStudent
+      priceRegular
+      restaurant {
+        id
+        name
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useMealQuery__
+ *
+ * To run a query within a React component, call `useMealQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMealQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMealQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useMealQuery(baseOptions: Apollo.QueryHookOptions<MealQuery, MealQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MealQuery, MealQueryVariables>(MealDocument, options);
+      }
+export function useMealLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MealQuery, MealQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MealQuery, MealQueryVariables>(MealDocument, options);
+        }
+export type MealQueryHookResult = ReturnType<typeof useMealQuery>;
+export type MealLazyQueryHookResult = ReturnType<typeof useMealLazyQuery>;
+export type MealQueryResult = Apollo.QueryResult<MealQuery, MealQueryVariables>;
+export const MealsDocument = gql`
+    query meals {
+  meals {
+    id
+    name
+    category {
+      name
+    }
+  }
+}
+    `;
+
+/**
+ * __useMealsQuery__
+ *
+ * To run a query within a React component, call `useMealsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMealsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMealsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMealsQuery(baseOptions?: Apollo.QueryHookOptions<MealsQuery, MealsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MealsQuery, MealsQueryVariables>(MealsDocument, options);
+      }
+export function useMealsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MealsQuery, MealsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MealsQuery, MealsQueryVariables>(MealsDocument, options);
+        }
+export type MealsQueryHookResult = ReturnType<typeof useMealsQuery>;
+export type MealsLazyQueryHookResult = ReturnType<typeof useMealsLazyQuery>;
+export type MealsQueryResult = Apollo.QueryResult<MealsQuery, MealsQueryVariables>;
 export const RestaurantsDocument = gql`
     query restaurants {
   restaurants {
     id
     name
     img
+    openingHours
+    address
   }
 }
     `;

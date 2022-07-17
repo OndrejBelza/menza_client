@@ -1,0 +1,28 @@
+query meal($id: UUID!) {
+  meal(id: $id) {
+    id
+    name
+    category {
+      id
+      name
+    }
+    pictures {
+      id
+      img
+      restaurant {
+        id
+        name
+      }
+    }
+    prices {
+      id
+      date
+      priceStudent
+      priceRegular
+      restaurant {
+        id
+        name
+      }
+    }
+  }
+}

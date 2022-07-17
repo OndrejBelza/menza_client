@@ -3,5 +3,7 @@ query restaurants {
     id
     name
     img
+    openingHours
+    address
   }
 }
