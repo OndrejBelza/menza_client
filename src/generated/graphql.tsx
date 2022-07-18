@@ -287,6 +287,14 @@ export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: any, name: string, category?: { __typename?: 'Category', name: string } | null }> };
 
+export type MenuQueryVariables = Exact<{
+  restaurantId: Scalars['UUID'];
+  date: Scalars['DateTime'];
+}>;
+
+
+export type MenuQuery = { __typename?: 'Query', menu: { __typename?: 'Menu', date: any, restaurant?: { __typename?: 'Restaurant', id: any, img: string, address: string, openingHours: string, name: string } | null, mealPrices: Array<{ __typename?: 'MealPrice', id: any, priceStudent: number, priceRegular: number, meal?: { __typename?: 'Meal', name: string, category?: { __typename?: 'Category', name: string } | null, pictures: Array<{ __typename?: 'MealPicture', id: any }> } | null }> } };
+
 export type RestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -389,6 +397,63 @@ export function useMealsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Meal
 export type MealsQueryHookResult = ReturnType<typeof useMealsQuery>;
 export type MealsLazyQueryHookResult = ReturnType<typeof useMealsLazyQuery>;
 export type MealsQueryResult = Apollo.QueryResult<MealsQuery, MealsQueryVariables>;
+export const MenuDocument = gql`
+    query menu($restaurantId: UUID!, $date: DateTime!) {
+  menu(date: $date, restaurantId: $restaurantId) {
+    date
+    restaurant {
+      id
+      img
+      address
+      openingHours
+      name
+    }
+    mealPrices {
+      id
+      priceStudent
+      priceRegular
+      meal {
+        name
+        category {
+          name
+        }
+        pictures {
+          id
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useMenuQuery__
+ *
+ * To run a query within a React component, call `useMenuQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMenuQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMenuQuery({
+ *   variables: {
+ *      restaurantId: // value for 'restaurantId'
+ *      date: // value for 'date'
+ *   },
+ * });
+ */
+export function useMenuQuery(baseOptions: Apollo.QueryHookOptions<MenuQuery, MenuQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MenuQuery, MenuQueryVariables>(MenuDocument, options);
+      }
+export function useMenuLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MenuQuery, MenuQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MenuQuery, MenuQueryVariables>(MenuDocument, options);
+        }
+export type MenuQueryHookResult = ReturnType<typeof useMenuQuery>;
+export type MenuLazyQueryHookResult = ReturnType<typeof useMenuLazyQuery>;
+export type MenuQueryResult = Apollo.QueryResult<MenuQuery, MenuQueryVariables>;
 export const RestaurantsDocument = gql`
     query restaurants {
   restaurants {
