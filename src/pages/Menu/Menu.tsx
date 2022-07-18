@@ -34,13 +34,19 @@ export type MenuProps = {
 };
 
 const Menu: FC<MenuProps> = ({ isLoading, error, menu }) => {
-  if (!menu?.restaurant) return <>restaurant not found</>;
-  console.log(menu.mealPrices);
+  if (!menu?.restaurant && !isLoading) return <>restaurant not found</>;
+
   return (
     <Page isLoading={isLoading} error={error}>
-      <div className="max-w-5xl mx-auto space-y-4">
-        <Banner {...menu.restaurant} />
-        <DataGridContainer columns={columns} data={menu.mealPrices} />
+      <div className="max-w-5xl mx-auto space-y-4 mt-10">
+        {menu?.restaurant && <Banner {...menu.restaurant} />}
+        {(menu?.mealPrices?.length || 0) > 1 ? (
+          <DataGridContainer columns={columns} data={menu?.mealPrices || []} />
+        ) : (
+          <p className="text-center mt-4 text-lg">
+            <span className="italic ">žádné informace</span> 😥
+          </p>
+        )}
       </div>
     </Page>
   );
