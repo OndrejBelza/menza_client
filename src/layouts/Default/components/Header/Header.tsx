@@ -5,7 +5,7 @@ import logo from "./assets/logo.png";
 const Header: FC = () => {
   return (
     <div className="bg-gray-100 ">
-      <div className="max-w-5xl mx-auto py-2 flex items-center">
+      <div className="max-w-5xl mx-2 lg:mx-auto py-2 flex items-center">
         <Link to="/">
           <img alt="logo" src={logo} className="w-10 h-auto" />
         </Link>

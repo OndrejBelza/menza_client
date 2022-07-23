@@ -1,13 +1,6 @@
 query menu($restaurantId: UUID!, $date: DateTime!) {
   menu(date: $date, restaurantId: $restaurantId) {
     date
-    restaurant {
-      id
-      img
-      address
-      openingHours
-      name
-    }
     mealPrices {
       id
       priceStudent

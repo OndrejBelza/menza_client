@@ -1,0 +1,9 @@
+query restaurant($restaurantId: UUID!) {
+  restaurant(id: $restaurantId) {
+    id
+    img
+    address
+    openingHours
+    name
+  }
+}

@@ -15,7 +15,7 @@ function App() {
             <Route path="/" element={<Homepage />}></Route>
             <Route path="restaurant">
               <Route path=":restaurantId">
-                <Route path="menu/:date" element={<MenuContainer />} />
+                <Route path="menu" element={<MenuContainer />} />
               </Route>
             </Route>
             <Route path="meal" element={<MealsContainer />} />

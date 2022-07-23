@@ -7,7 +7,7 @@ const HomepageContainer: FC = () => {
   const { data, loading, error } = useRestaurantsQuery();
 
   const generateDetailLink = useCallback((id: string) => {
-    return `restaurant/${id}/menu/${dayjs().format("YYYY-MM-DD")}`;
+    return `restaurant/${id}/menu?date=${dayjs().format("YYYY-MM-DD")}`;
   }, []);
 
   return (

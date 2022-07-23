@@ -18,7 +18,7 @@ const Homepage: FC<HomepageProps> = ({
   return (
     <Page isLoading={isLoading} error={error}>
       <div className="max-w-5xl mx-auto">
-        <div className="grid gap-4 grid-cols-3 mt-10">
+        <div className="grid gap-4 grid-cols-1 mx-2 lg:mx-0 md:grid-cols-2 lg:grid-cols-3 mt-10">
           {restaurants?.map((restaurant) => (
             <RestaurantCard
               key={restaurant.id}

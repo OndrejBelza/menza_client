@@ -37,7 +37,7 @@ const Meals: FC<MealsProps> = ({
 }) => {
   return (
     <Page isLoading={isLoading} error={error}>
-      <div className="max-w-5xl mx-auto mt-10">
+      <div className="max-w-5xl mx-2 lg:mx-auto mt-10">
         <div className="flex flex-col space-y-4">
           <DataGridContainer
             columns={columns}
