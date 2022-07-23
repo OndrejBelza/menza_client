@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 
 export type CategoryProps = {
   name: string;
+  width?: string;
 };
 
 const getColors = (name: string): { background: string; text: string } => {
@@ -59,11 +60,11 @@ const getColors = (name: string): { background: string; text: string } => {
   };
 };
 
-const Category: FC<CategoryProps> = ({ name }) => {
+const Category: FC<CategoryProps> = ({ name, width }) => {
   const colors = useMemo(() => getColors(name), [name]);
   return (
     <span
-      className={`p-1 text-sm ${colors.background} ${colors.text} rounded-md `}
+      className={`p-1 text-sm text-center ${colors.background} ${colors.text} ${width} rounded-md `}
     >
       {name}
     </span>

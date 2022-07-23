@@ -8,19 +8,23 @@ const formatCurrency = (value: string) => `${value} Kč`;
 
 const columns: Column[] = [
   {
+    key: "name",
     header: "Název",
     path: "meal.name",
   },
   {
+    key: "category",
     header: "Kategorie",
     path: "meal.category.name",
   },
   {
+    key: "priceStudent",
     header: "Cena student",
     path: "priceStudent",
     formatValue: formatCurrency,
   },
   {
+    key: "priceRegular",
     header: "Cena normální",
     path: "priceRegular",
     formatValue: formatCurrency,

@@ -15,6 +15,7 @@ const Template: Story<DataGridProps> = (args) => (
 export const basic = Template.bind({});
 
 const columns = new Array(5).fill({}).map<Column>((_, i) => ({
+  key: `${i}`,
   header: faker.lorem.words(3),
   path: `${i}`,
   supportsFiltering: true,

@@ -1,14 +1,16 @@
 import { DataGridProps, RowData } from ".";
 import get from "lodash/fp/get";
 import React from "react";
+import generateGridTemplateColumns from "./utils/generateGridTemplateColumns";
 
 const DataGridContainer = <T extends RowData>({
   columns,
   data,
+  subscriber,
 }: DataGridProps<T>): JSX.Element => {
   return (
     <div
-      style={{ gridTemplateColumns: `repeat(${columns.length},1fr)` }}
+      style={{ gridTemplateColumns: generateGridTemplateColumns(columns) }}
       className={`border grid rounded-md drop-shadow-sm bg-white `}
     >
       {columns.map((column, index) => {
@@ -34,7 +36,7 @@ const DataGridContainer = <T extends RowData>({
           {columns.map((column, columnIndex) => {
             const isNotLastColumn = columnIndex < columns.length - 1;
             const isNotLastRow = rowIndex < data.length - 1;
-            let value = get(column.path)(row);
+            let value = get(column.path || column.key)(row);
             if (column.formatValue) value = column.formatValue(value);
             return (
               <div
@@ -49,7 +51,16 @@ const DataGridContainer = <T extends RowData>({
                 className={`p-2`}
                 key={`${rowIndex}-${column.path}`}
               >
-                {value}
+                {column.customCell ? (
+                  <column.customCell
+                    value={value}
+                    subscriber={subscriber}
+                    row={row}
+                    generateLink={column.generateLink}
+                  />
+                ) : (
+                  value
+                )}
               </div>
             );
           })}
