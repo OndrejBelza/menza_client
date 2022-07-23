@@ -13,7 +13,6 @@ const MenuContainer: FC = () => {
     variables: { restaurantId, date },
   });
 
-  console.log({ restaurantId, date });
   return <Menu isLoading={loading} error={error?.message} menu={data?.menu} />;
 };
 
