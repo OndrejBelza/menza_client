@@ -293,7 +293,7 @@ export type MenuQueryVariables = Exact<{
 }>;
 
 
-export type MenuQuery = { __typename?: 'Query', menu: { __typename?: 'Menu', date: any, mealPrices: Array<{ __typename?: 'MealPrice', id: any, priceStudent: number, priceRegular: number, meal?: { __typename?: 'Meal', name: string, category?: { __typename?: 'Category', name: string } | null, pictures: Array<{ __typename?: 'MealPicture', id: any }> } | null }> } };
+export type MenuQuery = { __typename?: 'Query', menu: { __typename?: 'Menu', date: any, mealPrices: Array<{ __typename?: 'MealPrice', id: any, priceStudent: number, priceRegular: number, meal?: { __typename?: 'Meal', id: any, name: string, category?: { __typename?: 'Category', name: string } | null, pictures: Array<{ __typename?: 'MealPicture', id: any }> } | null }> } };
 
 export type RestaurantQueryVariables = Exact<{
   restaurantId: Scalars['UUID'];
@@ -413,6 +413,7 @@ export const MenuDocument = gql`
       priceStudent
       priceRegular
       meal {
+        id
         name
         category {
           name

@@ -2,6 +2,7 @@ import { DataGridProps, RowData } from ".";
 import get from "lodash/fp/get";
 import React from "react";
 import generateGridTemplateColumns from "./utils/generateGridTemplateColumns";
+import { Alignment } from "./types";
 
 const DataGridContainer = <T extends RowData>({
   columns,
@@ -47,6 +48,12 @@ const DataGridContainer = <T extends RowData>({
                   borderBottom: isNotLastRow
                     ? "1px solid rgb(229 231 235)"
                     : undefined,
+                  textAlign:
+                    column.align === Alignment.right
+                      ? "right"
+                      : column.align === Alignment.center
+                      ? "center"
+                      : "left",
                 }}
                 className={`p-2`}
                 key={`${rowIndex}-${column.path}`}

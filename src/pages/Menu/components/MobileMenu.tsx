@@ -1,5 +1,5 @@
 import { MenuQuery } from "@generated/graphql";
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import groupBy from "lodash/groupBy";
 import MenuItemCard from "./MenuItemCard";
 import Category from "@elements/Category";
@@ -13,7 +13,9 @@ const MobileMenu: FC<MobileMenuProps> = ({ menu }) => {
     () => groupBy(menu.mealPrices, "meal.category.name"),
     [menu.mealPrices]
   );
-  console.log(groupedMealPrices);
+
+  const generateLink = useCallback((id: string) => `/meal/${id}`, []);
+
   return (
     <div className="space-y-4">
       {Object.keys(groupedMealPrices).map((category) => (
@@ -23,7 +25,11 @@ const MobileMenu: FC<MobileMenuProps> = ({ menu }) => {
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {groupedMealPrices[category].map((mealPrice) => (
-              <MenuItemCard mealPrice={mealPrice} key={mealPrice.id} />
+              <MenuItemCard
+                mealPrice={mealPrice}
+                key={mealPrice.id}
+                generateLink={generateLink}
+              />
             ))}
           </div>
         </div>

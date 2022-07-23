@@ -6,6 +6,7 @@ query menu($restaurantId: UUID!, $date: DateTime!) {
       priceStudent
       priceRegular
       meal {
+        id
         name
         category {
           name

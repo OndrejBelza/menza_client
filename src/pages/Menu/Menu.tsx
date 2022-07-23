@@ -1,6 +1,6 @@
 import Page from "@blocks/Page";
 import { MenuQuery, RestaurantQuery } from "@generated/graphql";
-import DataGridContainer, { Column } from "@organisms/DataGrid";
+import DataGridContainer, { Alignment, Column } from "@organisms/DataGrid";
 import { FC } from "react";
 import { DateChangeCallBack, DatePicker } from "react-nice-dates";
 import Banner from "./components/Banner";
@@ -8,31 +8,41 @@ import { cs } from "date-fns/locale";
 import Input from "@elements/Input";
 import { PuffLoader } from "react-spinners";
 import MobileMenu from "./components/MobileMenu";
+import CategoryCell from "./components/CategoryCell";
+import MealNameCell from "./components/MealNameCell";
 
-const formatCurrency = (value: string) => `${value} Kč`;
+const formatCurrency = (value: string) => `${parseFloat(value).toFixed(2)} Kč`;
 
 const columns: Column[] = [
   {
     key: "name",
     header: "Název",
     path: "meal.name",
+    customCell: MealNameCell,
+    generateLink: (row) => `/meal/${row.meal.id}`,
   },
   {
     key: "category",
     header: "Kategorie",
+    width: "150px",
     path: "meal.category.name",
+    customCell: CategoryCell,
   },
   {
     key: "priceStudent",
     header: "Cena student",
+    width: "150px",
     path: "priceStudent",
     formatValue: formatCurrency,
+    align: Alignment.right,
   },
   {
     key: "priceRegular",
     header: "Cena normální",
+    width: "150px",
     path: "priceRegular",
     formatValue: formatCurrency,
+    align: Alignment.right,
   },
 ];
 
