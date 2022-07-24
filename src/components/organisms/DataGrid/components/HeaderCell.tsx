@@ -33,9 +33,11 @@ const HeaderCell: FC<HeaderCellProps> = ({
         >
           <div className="flex items-center">
             {column.header}
-            <button onClick={toggleFilter} className="ml-2">
-              <BsFunnel />
-            </button>
+            {column.filter && (
+              <button onClick={toggleFilter} className="ml-2">
+                <BsFunnel />
+              </button>
+            )}
           </div>
 
           {isFilterVisible && (
