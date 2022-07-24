@@ -1,19 +1,32 @@
 import { useCategoriesQuery, useMealsQuery } from "@generated/graphql";
 import { Action, ActionTypes, State } from "@organisms/DataGrid";
 import produce from "immer";
-import { FC, useEffect, useMemo, useState } from "react";
-import Meals from "./Meals";
 import debounce from "lodash/debounce";
+import { FC, useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import Meals from "./Meals";
+import getFilter from "./utils/getFilter";
 
 const MealsContainer: FC = () => {
-  const { data, loading, error, refetch } = useMealsQuery();
-  const {
-    data: categories,
-    error: categoriesError,
-    loading: categoriesLoading,
-  } = useCategoriesQuery();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { data: categories, error: categoriesError } = useCategoriesQuery();
 
-  const [dataGridState, setDataGridState] = useState<State>({ filter: {} });
+  const [dataGridState, setDataGridState] = useState<State>(() => {
+    const filter = getFilter({
+      name: searchParams.get("name"),
+      category: searchParams.get("category"),
+    });
+    return {
+      filter,
+      openedFilters: Object.keys(filter),
+    };
+  });
+
+  const { data, loading, error, refetch } = useMealsQuery({
+    variables: {
+      filter: dataGridState.filter,
+    },
+  });
 
   const subscriber = (action: Action) => {
     setDataGridState(
@@ -21,6 +34,15 @@ const MealsContainer: FC = () => {
         if (action.type === ActionTypes.setFilter) {
           if (action.value) draft.filter[action.column] = action.value;
           else delete draft.filter[action.column];
+          setSearchParams(draft.filter);
+        }
+        if (action.type === ActionTypes.toggleFilter) {
+          if (!draft.openedFilters.includes(action.column))
+            draft.openedFilters = [...draft.openedFilters, action.column];
+          else
+            draft.openedFilters = draft.openedFilters.filter(
+              (column) => column !== action.column
+            );
         }
         return draft;
       })
@@ -56,7 +78,6 @@ const MealsContainer: FC = () => {
       isLoading={loading}
       error={error?.message || categoriesError?.message}
       dataGridState={dataGridState}
-      categoriesLoading={categoriesLoading}
       categories={categoriesOptions}
       dataGridSubscriber={subscriber}
     />

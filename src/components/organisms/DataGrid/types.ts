@@ -37,15 +37,18 @@ export type DataGridProps<T extends RowData = RowData> = {
 
 export type State = {
   filter: Record<string, string>;
+  openedFilters: string[];
 };
 
 export type Context = {
   setFilter: (column: Column, value: any) => void;
+  toggleFilter: (column: Column) => void;
   state: State;
 };
 
 export enum ActionTypes {
   setFilter = "setFilter",
+  toggleFilter = "toggleFilter",
 }
 
 export type Action = Record<"type", ActionTypes> & Record<string, any>;

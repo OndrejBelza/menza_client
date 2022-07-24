@@ -54,6 +54,8 @@ export type CreateRestaurantInput = {
 
 export type Meal = {
   __typename?: 'Meal';
+  averagePriceNormal?: Maybe<Scalars['Float']>;
+  averagePriceStudent?: Maybe<Scalars['Float']>;
   category?: Maybe<Category>;
   id: Scalars['UUID'];
   name: Scalars['String'];
@@ -308,7 +310,7 @@ export type MealsQueryVariables = Exact<{
 }>;
 
 
-export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: any, name: string, category?: { __typename?: 'Category', name: string } | null }> };
+export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: any, name: string, averagePriceStudent?: number | null, averagePriceNormal?: number | null, category?: { __typename?: 'Category', name: string } | null }> };
 
 export type MenuQueryVariables = Exact<{
   restaurantId: Scalars['UUID'];
@@ -432,6 +434,8 @@ export const MealsDocument = gql`
     category {
       name
     }
+    averagePriceStudent
+    averagePriceNormal
   }
 }
     `;

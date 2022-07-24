@@ -50,6 +50,7 @@ const PricesGraph: FC<PricesGraphProps> = ({ prices }) => {
         data={data}
         enableArea={true}
         yScale={{ type: "linear", min: 0, max: yScaleMax }}
+        pointLabelYOffset={0}
         curve="linear"
         animate={true}
         margin={{ top: 20, right: 20, bottom: 60, left: 80 }}

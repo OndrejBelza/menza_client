@@ -6,4 +6,8 @@ export const Actions: Record<ActionTypes, any> = {
     column: column.name,
     value,
   }),
+  [ActionTypes.toggleFilter]: (column: Column) => ({
+    type: ActionTypes.toggleFilter,
+    column: column.name,
+  }),
 };

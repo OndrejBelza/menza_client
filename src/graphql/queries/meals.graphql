@@ -5,5 +5,7 @@ query meals($filter: MealFilter) {
     category {
       name
     }
+    averagePriceStudent
+    averagePriceNormal
   }
 }

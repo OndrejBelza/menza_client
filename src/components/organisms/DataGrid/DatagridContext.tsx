@@ -2,12 +2,14 @@ import React, { createContext, useMemo } from "react";
 import { Actions } from "./actions";
 import { Column, Context, StateChanged } from "./types";
 
-const defaultState = {
+const defaultState: Context["state"] = {
   filter: {},
+  openedFilters: [],
 };
 const context = createContext<Context>({
   state: defaultState,
   setFilter: () => null,
+  toggleFilter: () => null,
 });
 
 export type ProviderProps = {
@@ -26,6 +28,8 @@ const Provider = ({
       state,
       setFilter: (column: Column, value: string) =>
         onStateChange?.(Actions.setFilter(column, value)),
+      toggleFilter: (column: Column) =>
+        onStateChange?.(Actions.toggleFilter(column)),
     }),
     [onStateChange, state]
   );

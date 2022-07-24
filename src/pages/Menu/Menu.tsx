@@ -89,7 +89,7 @@ const Menu: FC<MenuProps> = ({
               <DataGridContainer
                 columns={columns}
                 data={menu?.mealPrices || []}
-                state={{ filter: {} }}
+                state={{ filter: {}, openedFilters: [] }}
               />
             </div>
           </>

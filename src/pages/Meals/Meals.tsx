@@ -12,7 +12,6 @@ import MealNameCell from "./components/MealNameCell";
 
 export type MealsProps = {
   isLoading?: boolean;
-  categoriesLoading?: boolean;
   error?: string;
   meals?: MealsQuery["meals"];
   categories: { label: string; value: string | undefined }[];
@@ -26,7 +25,6 @@ const Meals: FC<MealsProps> = ({
   meals,
   dataGridState,
   categories,
-  categoriesLoading,
   dataGridSubscriber,
 }) => {
   const columns = useMemo<Column[]>(
@@ -46,6 +44,18 @@ const Meals: FC<MealsProps> = ({
         width: "150px",
         customCell: CategoryCell,
         filter: { type: FilterTypes.select, options: categories },
+      },
+      {
+        name: "averagePriceStudent",
+        header: "Průměrná cena student",
+        width: "minmax(150px, 160px)",
+        formatValue: (value) => `${parseFloat(value).toFixed(2)} Kč`,
+      },
+      {
+        name: "averagePriceNormal",
+        header: "Průměrná cena ostatní",
+        width: "minmax(150px, 160px)",
+        formatValue: (value) => `${parseFloat(value).toFixed(2)} Kč`,
       },
     ],
     [categories]
