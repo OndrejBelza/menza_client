@@ -249,6 +249,7 @@ export type Restaurant = {
   name: Scalars['String'];
   openingHours: Scalars['String'];
   scrape: Scalars['Boolean'];
+  scrapingStartedAt: Scalars['DateTime'];
 };
 
 export type Sort = {
@@ -325,7 +326,7 @@ export type RestaurantQueryVariables = Exact<{
 }>;
 
 
-export type RestaurantQuery = { __typename?: 'Query', restaurant?: { __typename?: 'Restaurant', id: any, img: string, address: string, openingHours: string, name: string } | null };
+export type RestaurantQuery = { __typename?: 'Query', restaurant?: { __typename?: 'Restaurant', id: any, img: string, address: string, openingHours: string, scrapingStartedAt: any, name: string } | null };
 
 export type RestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -525,6 +526,7 @@ export const RestaurantDocument = gql`
     img
     address
     openingHours
+    scrapingStartedAt
     name
   }
 }

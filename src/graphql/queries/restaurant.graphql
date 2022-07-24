@@ -4,6 +4,7 @@ query restaurant($restaurantId: UUID!) {
     img
     address
     openingHours
+    scrapingStartedAt
     name
   }
 }

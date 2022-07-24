@@ -10,6 +10,7 @@ import { PuffLoader } from "react-spinners";
 import MobileMenu from "./components/MobileMenu";
 import CategoryCell from "./components/CategoryCell";
 import MealNameCell from "./components/MealNameCell";
+import { getDay, isAfter, isBefore } from "date-fns";
 
 const formatCurrency = (value: string) => `${parseFloat(value).toFixed(2)} Kč`;
 
@@ -46,6 +47,15 @@ const columns: Column[] = [
   },
 ];
 
+const modifiers = {
+  disabled: (date: Date) => {
+    if (isAfter(date, new Date())) return true;
+    if (isBefore(date, new Date("2022-05-23"))) return true;
+    const day = getDay(date);
+    return [6, 0].includes(day);
+  },
+};
+
 export type MenuProps = {
   isMenuLoading?: boolean;
   isRestaurantLoading?: boolean;
@@ -69,7 +79,12 @@ const Menu: FC<MenuProps> = ({
     <Page isLoading={isRestaurantLoading} error={error}>
       <div className="max-w-5xl mx-2  lg:mx-auto space-y-4 mt-10 ">
         {restaurant && <Banner {...restaurant} />}
-        <DatePicker locale={cs} onDateChange={onDateChange} date={date}>
+        <DatePicker
+          locale={cs}
+          onDateChange={onDateChange}
+          date={date}
+          modifiers={modifiers}
+        >
           {({ inputProps }) => (
             <Input {...inputProps} disabled={isMenuLoading} />
           )}
