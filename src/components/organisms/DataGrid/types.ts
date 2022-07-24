@@ -5,7 +5,7 @@ export enum Alignment {
 }
 
 export type Column = {
-  key: string;
+  name: string;
   header: string;
   path?: string;
   align?: Alignment;
@@ -13,7 +13,8 @@ export type Column = {
   generateLink?: (row: RowData) => string;
   formatValue?: (value: any) => string;
   customCell?: (value: any, row: RowData) => JSX.Element;
-  supportsFiltering?: boolean;
+  supportSorting?: boolean;
+  filter?: Filter;
 };
 
 export type RowData = {
@@ -23,12 +24,46 @@ export type RowData = {
 export type CustomCell = {
   row: RowData;
   value: any;
-  subscriber?: (event: string, row: RowData) => void;
   generateLink?: (row: RowData) => string;
 };
 
 export type DataGridProps<T extends RowData = RowData> = {
+  isLoading?: boolean;
   columns: Column[];
   data: T[];
-  subscriber?: (event: string, row: T) => void;
+  state: Context["state"];
+  subscriber?: StateChanged;
 };
+
+export type State = {
+  filter: Record<string, string>;
+};
+
+export type Context = {
+  setFilter: (column: Column, value: any) => void;
+  state: State;
+};
+
+export enum ActionTypes {
+  setFilter = "setFilter",
+}
+
+export type Action = Record<"type", ActionTypes> & Record<string, any>;
+
+export type StateChanged = (action: Action) => void;
+
+export enum FilterTypes {
+  text = "text",
+  select = "select",
+}
+
+export type TextFilter = {
+  type: FilterTypes.text;
+};
+
+export type SelectFilter = {
+  type: FilterTypes.select;
+  options: { value: string | undefined; label: string }[];
+};
+
+export type Filter = TextFilter | SelectFilter;

@@ -61,6 +61,11 @@ export type Meal = {
   prices: Array<MealPrice>;
 };
 
+export type MealFilter = {
+  category?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+};
+
 export type MealOption = {
   __typename?: 'MealOption';
   id: Scalars['UUID'];
@@ -211,6 +216,12 @@ export type QueryMealPriceArgs = {
 };
 
 
+export type QueryMealsArgs = {
+  filter?: InputMaybe<MealFilter>;
+  sort?: InputMaybe<Sort>;
+};
+
+
 export type QueryMenuArgs = {
   date: Scalars['DateTime'];
   restaurantId: Scalars['UUID'];
@@ -236,6 +247,11 @@ export type Restaurant = {
   name: Scalars['String'];
   openingHours: Scalars['String'];
   scrape: Scalars['Boolean'];
+};
+
+export type Sort = {
+  by: Scalars['String'];
+  order?: InputMaybe<Scalars['String']>;
 };
 
 export type UpdateCategoryInput = {
@@ -275,6 +291,11 @@ export type UpdateRestaurantInput = {
   scrapingStartedAt: Scalars['DateTime'];
 };
 
+export type CategoriesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CategoriesQuery = { __typename?: 'Query', categories: Array<{ __typename?: 'Category', id: any, name: string }> };
+
 export type MealQueryVariables = Exact<{
   id: Scalars['UUID'];
 }>;
@@ -282,7 +303,9 @@ export type MealQueryVariables = Exact<{
 
 export type MealQuery = { __typename?: 'Query', meal?: { __typename?: 'Meal', id: any, name: string, category?: { __typename?: 'Category', id: any, name: string } | null, pictures: Array<{ __typename?: 'MealPicture', id: any, img: string, restaurant?: { __typename?: 'Restaurant', id: any, name: string } | null }>, prices: Array<{ __typename?: 'MealPrice', id: any, date: any, priceStudent: number, priceRegular: number, restaurant?: { __typename?: 'Restaurant', id: any, name: string } | null }> } | null };
 
-export type MealsQueryVariables = Exact<{ [key: string]: never; }>;
+export type MealsQueryVariables = Exact<{
+  filter?: InputMaybe<MealFilter>;
+}>;
 
 
 export type MealsQuery = { __typename?: 'Query', meals: Array<{ __typename?: 'Meal', id: any, name: string, category?: { __typename?: 'Category', name: string } | null }> };
@@ -308,6 +331,41 @@ export type RestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 export type RestaurantsQuery = { __typename?: 'Query', restaurants: Array<{ __typename?: 'Restaurant', id: any, name: string, img: string, openingHours: string, address: string }> };
 
 
+export const CategoriesDocument = gql`
+    query categories {
+  categories {
+    id
+    name
+  }
+}
+    `;
+
+/**
+ * __useCategoriesQuery__
+ *
+ * To run a query within a React component, call `useCategoriesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCategoriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCategoriesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCategoriesQuery(baseOptions?: Apollo.QueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
+      }
+export function useCategoriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<CategoriesQuery, CategoriesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<CategoriesQuery, CategoriesQueryVariables>(CategoriesDocument, options);
+        }
+export type CategoriesQueryHookResult = ReturnType<typeof useCategoriesQuery>;
+export type CategoriesLazyQueryHookResult = ReturnType<typeof useCategoriesLazyQuery>;
+export type CategoriesQueryResult = Apollo.QueryResult<CategoriesQuery, CategoriesQueryVariables>;
 export const MealDocument = gql`
     query meal($id: UUID!) {
   meal(id: $id) {
@@ -367,8 +425,8 @@ export type MealQueryHookResult = ReturnType<typeof useMealQuery>;
 export type MealLazyQueryHookResult = ReturnType<typeof useMealLazyQuery>;
 export type MealQueryResult = Apollo.QueryResult<MealQuery, MealQueryVariables>;
 export const MealsDocument = gql`
-    query meals {
-  meals {
+    query meals($filter: MealFilter) {
+  meals(filter: $filter) {
     id
     name
     category {
@@ -390,6 +448,7 @@ export const MealsDocument = gql`
  * @example
  * const { data, loading, error } = useMealsQuery({
  *   variables: {
+ *      filter: // value for 'filter'
  *   },
  * });
  */

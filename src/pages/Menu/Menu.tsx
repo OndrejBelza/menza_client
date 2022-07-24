@@ -15,21 +15,21 @@ const formatCurrency = (value: string) => `${parseFloat(value).toFixed(2)} Kč`;
 
 const columns: Column[] = [
   {
-    key: "name",
+    name: "name",
     header: "Název",
     path: "meal.name",
     customCell: MealNameCell,
     generateLink: (row) => `/meal/${row.meal.id}`,
   },
   {
-    key: "category",
+    name: "category",
     header: "Kategorie",
     width: "150px",
     path: "meal.category.name",
     customCell: CategoryCell,
   },
   {
-    key: "priceStudent",
+    name: "priceStudent",
     header: "Cena student",
     width: "150px",
     path: "priceStudent",
@@ -37,7 +37,7 @@ const columns: Column[] = [
     align: Alignment.right,
   },
   {
-    key: "priceRegular",
+    name: "priceRegular",
     header: "Cena normální",
     width: "150px",
     path: "priceRegular",
@@ -89,6 +89,7 @@ const Menu: FC<MenuProps> = ({
               <DataGridContainer
                 columns={columns}
                 data={menu?.mealPrices || []}
+                state={{ filter: {} }}
               />
             </div>
           </>
